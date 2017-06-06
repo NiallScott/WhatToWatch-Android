@@ -1,0 +1,14 @@
+apply plugin: 'kotlin'
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+
+    // Kotlin
+    compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion"
+
+    // Retrofit
+    compile 'com.squareup.retrofit2:retrofit:2.3.0'
+
+    // Gson
+    compile 'com.google.code.gson:gson:2.8.1'
+}
