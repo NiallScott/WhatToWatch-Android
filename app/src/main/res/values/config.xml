@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="what_to_watch_api_url" translatable="false">https://apii.whattowat.ch</string>
+</resources>
