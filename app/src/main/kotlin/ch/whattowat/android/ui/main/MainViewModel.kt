@@ -3,35 +3,28 @@ package ch.whattowat.android.ui.main
 import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
-import ch.whattowat.api.WhatToWatchApiResponse
-import ch.whattowat.api.WhatToWatchEndpoint
 import ch.whattowat.api.model.Film
-import ch.whattowat.api.model.WhatToWatchApiException
-import javax.inject.Inject
 
-class MainViewModel @Inject constructor(private val endpoint: WhatToWatchEndpoint): ViewModel() {
+class MainViewModel : ViewModel() {
 
-    val liveFilm: LiveData<Film>
-        get() = mutableLiveFilm
-    private val mutableLiveFilm = MutableLiveData<Film>()
+    private var _film: MutableLiveData<Film>? = null
+    val film: LiveData<Film>
+        get() {
+            if (_film == null) {
+                _film = MutableLiveData()
+                getFilm()
+            }
 
-    fun init() {
-        val currentFilm = liveFilm.value
-
-        if (currentFilm == null) {
-            loadRandomFilm()
+            return _film ?: throw AssertionError("Set to null by another thread")
         }
+
+    private fun getFilm() {
+        Thread(this::doInBackground).start()
     }
 
-    private fun loadRandomFilm() {
-        endpoint.getRandomFilm(object : WhatToWatchApiResponse {
-            override fun onSuccess(film: Film) {
-                mutableLiveFilm.value = film
-            }
-
-            override fun onError(error: WhatToWatchApiException) {
-
-            }
-        })
+    private fun doInBackground() {
+        Thread.sleep(3000)
+        val film = Film("Sample title", 1988)
+        _film?.postValue(film)
     }
 }

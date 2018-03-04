@@ -16,13 +16,18 @@ import retrofit2.converter.gson.GsonConverterFactory
 class WhatToWatchApiModule {
 
     @Provides
-    fun provideWhatToWatchApiEndpoint(retrofit: Retrofit): WhatToWatchEndpoint {
-        return HttpWhatToWatchEndpoint(retrofit)
-    }
+    @ForWhatToWatch
+    fun provideOkHttpClient(okhttpBuilder: OkHttpClient.Builder) = okhttpBuilder.build();
 
     @Provides
-    fun provideRetrofit(application: WhatToWatchApplication, httpClient: OkHttpClient,
-                        gson: Gson): Retrofit {
+    @ForWhatToWatch
+    fun provideGson(gsonBuilder: GsonBuilder) = gsonBuilder.create()
+
+    @Provides
+    @ForWhatToWatch
+    fun provideRetrofit(application: WhatToWatchApplication,
+                        @ForWhatToWatch httpClient: OkHttpClient,
+                        @ForWhatToWatch gson: Gson): Retrofit {
         return Retrofit.Builder()
                 .baseUrl(application.getString(R.string.what_to_watch_api_url))
                 .addConverterFactory(GsonConverterFactory.create(gson))
@@ -31,8 +36,7 @@ class WhatToWatchApiModule {
     }
 
     @Provides
-    fun provideOkHttpClient() = OkHttpClient()
-
-    @Provides
-    fun provideGson() = GsonBuilder().create()
+    fun provideWhatToWatchApiEndpoint(@ForWhatToWatch retrofit: Retrofit): WhatToWatchEndpoint {
+        return HttpWhatToWatchEndpoint(retrofit)
+    }
 }

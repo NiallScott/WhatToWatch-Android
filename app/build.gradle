@@ -4,19 +4,19 @@ apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 
 ext {
-    supportLibraryVersion = '26.1.0'
-    daggerVersion = '2.12'
-    architectureComponentsVersion = '1.0.0-rc1'
+    supportLibraryVersion = '27.1.0'
+    daggerVersion = '2.14.1'
+    architectureComponentsVersion = '1.1.0'
 }
 
 android {
-    compileSdkVersion 26
-    buildToolsVersion "26.0.1"
+    compileSdkVersion 27
+    buildToolsVersion "27.0.3"
 
     defaultConfig {
         applicationId "ch.whattowat.android"
         minSdkVersion 21
-        targetSdkVersion 26
+        targetSdkVersion 27
         versionCode 1
         versionName "0.1.0"
     }
@@ -40,25 +40,25 @@ android {
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
     // TODO: remove this once architecture is in place.
-    compile project(':wtw-api')
+    implementation project(':wtw-api')
 
     // Kotlin
-    compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion"
 
     // Android Support libraries
-    compile "com.android.support:appcompat-v7:$supportLibraryVersion"
+    implementation "com.android.support:appcompat-v7:$supportLibraryVersion"
 
     // Android Architecture Components
-    compile "android.arch.lifecycle:runtime:$architectureComponentsVersion"
-    compile "android.arch.lifecycle:extensions:$architectureComponentsVersion"
+    implementation "android.arch.lifecycle:extensions:$architectureComponentsVersion"
+    implementation "android.arch.lifecycle:common-java8:$architectureComponentsVersion"
     annotationProcessor "android.arch.lifecycle:compiler:$architectureComponentsVersion"
 
     // Dagger 2
-    compile "com.google.dagger:dagger:$daggerVersion"
+    implementation "com.google.dagger:dagger:$daggerVersion"
     kapt "com.google.dagger:dagger-compiler:$daggerVersion"
 
     // Gson
-    compile 'com.squareup.retrofit2:converter-gson:2.3.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.3.0'
 }
