@@ -1,9 +1,27 @@
 package ch.whattowat.android.dagger
 
+import android.app.Application
+import ch.whattowat.android.WhatToWatchApplication
+import dagger.BindsInstance
 import dagger.Component
+import dagger.android.AndroidInjectionModule
+import javax.inject.Singleton
 
-@Component(modules = arrayOf(ApplicationModule::class))
+@Singleton
+@Component(modules = arrayOf(
+        AndroidInjectionModule::class,
+        ApplicationModule::class
+))
 interface ApplicationComponent {
 
-    fun plusDataComponent(): DataComponent
+    fun inject(app: WhatToWatchApplication)
+
+    @Component.Builder
+    interface Builder {
+
+        @BindsInstance
+        fun application(application: Application): Builder
+
+        fun build(): ApplicationComponent
+    }
 }

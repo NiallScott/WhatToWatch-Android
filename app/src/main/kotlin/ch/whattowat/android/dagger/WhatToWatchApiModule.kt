@@ -11,18 +11,22 @@ import dagger.Provides
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import javax.inject.Singleton
 
 @Module
 class WhatToWatchApiModule {
 
+    @Singleton
     @Provides
     @ForWhatToWatch
     fun provideOkHttpClient(okhttpBuilder: OkHttpClient.Builder) = okhttpBuilder.build();
 
+    @Singleton
     @Provides
     @ForWhatToWatch
     fun provideGson(gsonBuilder: GsonBuilder) = gsonBuilder.create()
 
+    @Singleton
     @Provides
     @ForWhatToWatch
     fun provideRetrofit(application: WhatToWatchApplication,
@@ -35,6 +39,7 @@ class WhatToWatchApiModule {
                 .build()
     }
 
+    @Singleton
     @Provides
     fun provideWhatToWatchApiEndpoint(@ForWhatToWatch retrofit: Retrofit): WhatToWatchEndpoint {
         return HttpWhatToWatchEndpoint(retrofit)

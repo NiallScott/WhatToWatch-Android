@@ -4,8 +4,9 @@ import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
 import ch.whattowat.api.model.Film
+import javax.inject.Inject
 
-class MainViewModel : ViewModel() {
+class MainViewModel @Inject constructor() : ViewModel() {
 
     private var _film: MutableLiveData<Film>? = null
     val film: LiveData<Film>

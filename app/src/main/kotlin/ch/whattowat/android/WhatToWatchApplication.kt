@@ -1,27 +1,27 @@
 package ch.whattowat.android
 
+import android.app.Activity
 import android.app.Application
-import ch.whattowat.android.dagger.ApplicationComponent
-import ch.whattowat.android.dagger.ApplicationModule
 import ch.whattowat.android.dagger.DaggerApplicationComponent
+import dagger.android.DispatchingAndroidInjector
+import dagger.android.HasActivityInjector
+import javax.inject.Inject
 
-class WhatToWatchApplication : Application() {
+class WhatToWatchApplication : Application(), HasActivityInjector {
 
-    private var applicationComponent: ApplicationComponent? = null
+    @Inject
+    lateinit var dispatchingAndroidInjector: DispatchingAndroidInjector<Activity>
 
-    fun getApplicationComponent(): ApplicationComponent {
-        synchronized(this) {
-            var component = applicationComponent
+    override fun onCreate() {
+        super.onCreate()
 
-            if (component == null) {
-                component = DaggerApplicationComponent
-                        .builder()
-                        .applicationModule(ApplicationModule(this))
-                        .build()
-                applicationComponent = component
-            }
+        DaggerApplicationComponent.builder()
+                .application(this)
+                .build()
+                .inject(this)
+    }
 
-            return component!!
-        }
+    override fun activityInjector(): DispatchingAndroidInjector<Activity> {
+        return dispatchingAndroidInjector
     }
 }

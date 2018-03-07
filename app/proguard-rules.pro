@@ -27,3 +27,8 @@
 -keepattributes Signature
 # Retain declared checked exceptions for use by a Proxy instance.
 -keepattributes Exceptions.animal_sniffer.IgnoreJRERequirement
+
+##################
+# Dagger Android #
+##################
+-dontwarn com.google.errorprone.annotations.*

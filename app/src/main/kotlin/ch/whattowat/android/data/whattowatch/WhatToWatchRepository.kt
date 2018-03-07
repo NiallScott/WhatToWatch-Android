@@ -6,7 +6,9 @@ import ch.whattowat.api.WhatToWatchApiResponse
 import ch.whattowat.api.WhatToWatchEndpoint
 import ch.whattowat.api.model.Film
 import ch.whattowat.api.model.WhatToWatchApiException
+import javax.inject.Singleton
 
+@Singleton
 class WhatToWatchRepository(private var whatToWatchEndpoint: WhatToWatchEndpoint) {
 
     fun getRandomFilm(): LiveData<Film> {
