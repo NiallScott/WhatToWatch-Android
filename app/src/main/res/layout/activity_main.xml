@@ -1,14 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <android.support.v4.widget.ContentLoadingProgressBar
+        android:id="@+id/progress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:indeterminateOnly="true"
+        tools:visibility="gone" />
+
     <TextView
+        style="@style/TextAppearance.AppCompat.Headline"
         android:id="@+id/txtFilmName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
         android:layout_gravity="center"
-        android:text="Placeholder text" />
+        android:visibility="gone"
+        android:gravity="center"
+        tools:text="Film Name (2018)"
+        tools:visibility="visible" />
 </FrameLayout>

@@ -8,10 +8,10 @@ import dagger.android.AndroidInjectionModule
 import javax.inject.Singleton
 
 @Singleton
-@Component(modules = arrayOf(
-        AndroidInjectionModule::class,
-        ApplicationModule::class
-))
+@Component(modules = [
+    AndroidInjectionModule::class,
+    ApplicationModule::class
+])
 interface ApplicationComponent {
 
     fun inject(app: WhatToWatchApplication)

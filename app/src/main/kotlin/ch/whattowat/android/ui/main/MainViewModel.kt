@@ -1,31 +1,25 @@
 package ch.whattowat.android.ui.main
 
 import android.arch.lifecycle.LiveData
-import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
+import ch.whattowat.android.data.whattowatch.WhatToWatchRepository
 import ch.whattowat.api.model.Film
 import javax.inject.Inject
 
-class MainViewModel @Inject constructor() : ViewModel() {
+class MainViewModel @Inject constructor(
+        private val whatToWatchRepository: WhatToWatchRepository) : ViewModel() {
 
-    private var _film: MutableLiveData<Film>? = null
+    private var _film: LiveData<Film>? = null
     val film: LiveData<Film>
         get() {
             if (_film == null) {
-                _film = MutableLiveData()
-                getFilm()
+                retrieveFilm()
             }
 
             return _film ?: throw AssertionError("Set to null by another thread")
         }
 
-    private fun getFilm() {
-        Thread(this::doInBackground).start()
-    }
-
-    private fun doInBackground() {
-        Thread.sleep(3000)
-        val film = Film("Sample title", 1988)
-        _film?.postValue(film)
+    fun retrieveFilm() {
+        _film = whatToWatchRepository.getRandomFilm()
     }
 }

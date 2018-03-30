@@ -17,13 +17,9 @@ class HttpWhatToWatchEndpoint(retrofit: Retrofit) : WhatToWatchEndpoint {
         service.getRandomFilm().enqueue(object : Callback<Film> {
             override fun onResponse(call: Call<Film>, response: Response<Film>) {
                 if (response.isSuccessful) {
-                    val body = response.body()
-
-                    if (body != null) {
-                        callback.onSuccess(body)
-                    } else {
-                        callback.onError(WhatToWatchApiException("The response body is empty"))
-                    }
+                    response.body()?.let {
+                        callback.onSuccess(it)
+                    } ?: callback.onError(WhatToWatchApiException("The response body is empty"))
                 } else {
                     callback.onError(
                             WhatToWatchApiException("HTTP status code: ${response.code()}"))

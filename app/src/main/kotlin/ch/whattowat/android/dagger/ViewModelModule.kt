@@ -5,9 +5,7 @@ import android.arch.lifecycle.ViewModelProvider
 import ch.whattowat.android.ui.main.MainViewModelModule
 import dagger.Binds
 
-@Module(includes = arrayOf(
-        MainViewModelModule::class
-))
+@Module(includes = [ MainViewModelModule::class ])
 abstract class ViewModelModule {
 
     @Binds

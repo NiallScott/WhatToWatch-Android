@@ -1,7 +1,7 @@
 package ch.whattowat.android.dagger
 
+import android.app.Application
 import ch.whattowat.android.R
-import ch.whattowat.android.WhatToWatchApplication
 import ch.whattowat.api.WhatToWatchEndpoint
 import ch.whattowat.api.http.HttpWhatToWatchEndpoint
 import com.google.gson.Gson
@@ -19,7 +19,7 @@ class WhatToWatchApiModule {
     @Singleton
     @Provides
     @ForWhatToWatch
-    fun provideOkHttpClient(okhttpBuilder: OkHttpClient.Builder) = okhttpBuilder.build();
+    fun provideOkHttpClient(okhttpBuilder: OkHttpClient.Builder) = okhttpBuilder.build()
 
     @Singleton
     @Provides
@@ -29,7 +29,7 @@ class WhatToWatchApiModule {
     @Singleton
     @Provides
     @ForWhatToWatch
-    fun provideRetrofit(application: WhatToWatchApplication,
+    fun provideRetrofit(application: Application,
                         @ForWhatToWatch httpClient: OkHttpClient,
                         @ForWhatToWatch gson: Gson): Retrofit {
         return Retrofit.Builder()
