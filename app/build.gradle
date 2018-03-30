@@ -5,8 +5,8 @@ apply plugin: 'kotlin-kapt'
 
 ext {
     supportLibraryVersion = '27.1.0'
-    daggerVersion = '2.14.1'
-    architectureComponentsVersion = '1.1.0'
+    daggerVersion = '2.15'
+    architectureComponentsVersion = '1.1.1'
 }
 
 android {
@@ -63,5 +63,5 @@ dependencies {
     kapt "com.google.dagger:dagger-android-processor:$daggerVersion"
 
     // Gson
-    implementation 'com.squareup.retrofit2:converter-gson:2.3.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.4.0'
 }
